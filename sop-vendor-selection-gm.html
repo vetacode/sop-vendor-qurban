@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vet-Audit: Seleksi Vendor Kurban</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap');
+      body {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        background: #f1f5f9;
+      }
+      .step-hidden {
+        display: none;
+      }
+      /* Style khusus untuk menangkap elemen tanpa merusak layout utama */
+      #pdf-export-container {
+        position: absolute;
+        left: -9999px;
+        top: 0;
+        width: 794px; /* A4 Width in pixels at 96dpi */
+        background: white;
+      }
+    </style>
+  </head>
+  <body class="antialiased text-slate-800">
+    <div class="min-h-screen pb-20">
+      <nav class="bg-emerald-800 text-white p-4 shadow-lg mb-8">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+          <div class="flex items-center gap-3">
+            <i class="fa-solid fa-file-shield text-emerald-400 fa-xl"></i>
+            <h1 class="text-xl font-bold tracking-tight uppercase">
+              Sistem Seleksi Vendor
+              <span class="text-emerald-300">Vet-Check</span>
+            </h1>
+          </div>
+          <div
+            class="text-xs font-semibold bg-emerald-900/50 px-3 py-2 rounded-full border border-emerald-600"
+          >
+            STATUS: OTORITAS DOKTER HEWAN
+          </div>
+        </div>
+      </nav>
+
+      <main class="max-w-4xl mx-auto px-4">
+        <div
+          class="mb-8 bg-white p-6 rounded-2xl shadow-sm border border-slate-200"
+        >
+          <div class="flex justify-between mb-4">
+            <span
+              id="step-label"
+              class="text-sm font-bold text-emerald-800 uppercase italic"
+              >Tahap 1: Profil & Legalitas</span
+            >
+            <span id="progress-percent" class="text-sm font-bold text-slate-400"
+              >33%</span
+            >
+          </div>
+          <div class="w-full bg-slate-100 h-2.5 rounded-full">
+            <div
+              id="progress-bar"
+              class="bg-emerald-600 h-full transition-all duration-500 rounded-full shadow-lg"
+              style="width: 33%"
+            ></div>
+          </div>
+        </div>
+
+        <div
+          class="bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden"
+        >
+          <form id="auditForm">
+            <div id="step1" class="p-8 space-y-6">
+              <div class="flex items-center gap-4 mb-6">
+                <div
+                  class="h-12 w-12 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center font-bold text-xl"
+                >
+                  1
+                </div>
+                <div>
+                  <h2 class="text-xl font-bold text-slate-800">
+                    Informasi Dasar Vendor
+                  </h2>
+                  <p class="text-sm text-slate-500">
+                    Lengkapi data legalitas dan penanggung jawab.
+                  </p>
+                </div>
+              </div>
+
+              <div class="grid md:grid-cols-2 gap-5">
+                <div class="space-y-1.5">
+                  <label class="text-xs font-bold text-slate-500 uppercase ml-1"
+                    >Nama Peternakan/Vendor</label
+                  >
+                  <input
+                    type="text"
+                    id="v_name"
+                    placeholder="Contoh: UD. Ternak Mandiri"
+                    class="w-full p-3.5 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-50/50 outline-none transition"
+                  />
+                </div>
+                <div class="space-y-1.5">
+                  <label class="text-xs font-bold text-slate-500 uppercase ml-1"
+                    >Penanggung Jawab</label
+                  >
+                  <input
+                    type="text"
+                    id="v_owner"
+                    placeholder="Nama Lengkap"
+                    class="w-full p-3.5 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-50/50 outline-none transition"
+                  />
+                </div>
+                <div class="space-y-1.5">
+                  <label class="text-xs font-bold text-slate-500 uppercase ml-1"
+                    >No. WhatsApp/Kontak</label
+                  >
+                  <input
+                    type="tel"
+                    id="v_phone"
+                    placeholder="0812..."
+                    class="w-full p-3.5 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-50/50 outline-none transition"
+                  />
+                </div>
+                <div class="space-y-1.5">
+                  <label class="text-xs font-bold text-slate-500 uppercase ml-1"
+                    >Lokasi/Alamat</label
+                  >
+                  <input
+                    type="text"
+                    id="v_address"
+                    placeholder="Kota/Kabupaten"
+                    class="w-full p-3.5 rounded-xl border border-slate-200 focus:border-emerald-500 focus:ring-4 focus:ring-emerald-50/50 outline-none transition"
+                  />
+                </div>
+              </div>
+
+              <div class="pt-4 border-t border-slate-100">
+                <p
+                  class="text-sm font-bold text-slate-700 mb-4 flex items-center gap-2"
+                >
+                  <i class="fa-solid fa-file-contract text-emerald-600"></i>
+                  Checklist Dokumen Administrasi
+                </p>
+                <div class="grid md:grid-cols-2 gap-3">
+                  <label
+                    class="flex items-center p-4 rounded-xl border border-slate-100 hover:bg-emerald-50 transition cursor-pointer group"
+                  >
+                    <input
+                      type="checkbox"
+                      class="h-5 w-5 rounded-md border-slate-300 text-emerald-600 focus:ring-emerald-500 audit-check"
+                      data-label="SKKH (Surat Keterangan Kesehatan Hewan)"
+                    />
+                    <span
+                      class="ml-3 text-sm font-medium text-slate-600 group-hover:text-emerald-800"
+                      >SKKH Dinas Terkait</span
+                    >
+                  </label>
+                  <label
+                    class="flex items-center p-4 rounded-xl border border-slate-100 hover:bg-emerald-50 transition cursor-pointer group"
+                  >
+                    <input
+                      type="checkbox"
+                      class="h-5 w-5 rounded-md border-slate-300 text-emerald-600 focus:ring-emerald-500 audit-check"
+                      data-label="Sertifikat Vaksin PMK & LSD"
+                    />
+                    <span
+                      class="ml-3 text-sm font-medium text-slate-600 group-hover:text-emerald-800"
+                      >Sertifikat Vaksin (PMK/LSD)</span
+                    >
+                  </label>
+                  <label
+                    class="flex items-center p-4 rounded-xl border border-slate-100 hover:bg-emerald-50 transition cursor-pointer group"
+                  >
+                    <input
+                      type="checkbox"
+                      class="h-5 w-5 rounded-md border-slate-300 text-emerald-600 focus:ring-emerald-500 audit-check"
+                      data-label="Terdaftar di sistem iSIKHNAS"
+                    />
+                    <span
+                      class="ml-3 text-sm font-medium text-slate-600 group-hover:text-emerald-800"
+                      >Verifikasi iSIKHNAS</span
+                    >
+                  </label>
+                  <label
+                    class="flex items-center p-4 rounded-xl border border-slate-100 hover:bg-emerald-50 transition cursor-pointer group"
+                  >
+                    <input
+                      type="checkbox"
+                      class="h-5 w-5 rounded-md border-slate-300 text-emerald-600 focus:ring-emerald-500 audit-check"
+                      data-label="Surat Izin Usaha Peternakan (NIB)"
+                    />
+                    <span
+                      class="ml-3 text-sm font-medium text-slate-600 group-hover:text-emerald-800"
+                      >NIB / Izin Usaha</span
+                    >
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div id="step2" class="p-8 space-y-6 step-hidden">
+              <div class="flex items-center gap-4 mb-6">
+                <div
+                  class="h-12 w-12 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center font-bold text-xl"
+                >
+                  2
+                </div>
+                <div>
+                  <h2 class="text-xl font-bold text-slate-800">
+                    Audit Biosecurity Kandang
+                  </h2>
+                  <p class="text-sm text-slate-500">
+                    Penilaian fisik fasilitas dan manajemen kesejahteraan.
+                  </p>
+                </div>
+              </div>
+
+              <div class="space-y-4">
+                <div
+                  class="p-6 bg-slate-50 rounded-2xl border border-slate-200"
+                >
+                  <h3
+                    class="text-sm font-bold text-slate-700 uppercase mb-4 tracking-wider"
+                  >
+                    Kesehatan Lingkungan
+                  </h3>
+                  <div class="grid md:grid-cols-2 gap-4">
+                    <label class="flex items-center gap-3 text-sm">
+                      <input
+                        type="checkbox"
+                        class="h-4 w-4 rounded text-emerald-600 audit-check"
+                        data-label="Lantai kandang kering & bersih"
+                      />
+                      Lantai kering & minim kotoran
+                    </label>
+                    <label class="flex items-center gap-3 text-sm">
+                      <input
+                        type="checkbox"
+                        class="h-4 w-4 rounded text-emerald-600 audit-check"
+                        data-label="Drainase pembuangan limbah lancar"
+                      />
+                      Drainase limbah lancar
+                    </label>
+                    <label class="flex items-center gap-3 text-sm">
+                      <input
+                        type="checkbox"
+                        class="h-4 w-4 rounded text-emerald-600 audit-check"
+                        data-label="Ventilasi & pencahayaan optimal"
+                      />
+                      Ventilasi/Udara optimal
+                    </label>
+                    <label class="flex items-center gap-3 text-sm">
+                      <input
+                        type="checkbox"
+                        class="h-4 w-4 rounded text-emerald-600 audit-check"
+                        data-label="Tersedia kandang isolasi khusus"
+                      />
+                      Ada sekat karantina/isolasi
+                    </label>
+                  </div>
+                </div>
+
+                <div
+                  class="p-6 bg-slate-50 rounded-2xl border border-slate-200"
+                >
+                  <h3
+                    class="text-sm font-bold text-slate-700 uppercase mb-4 tracking-wider"
+                  >
+                    Manajemen Pakan
+                  </h3>
+                  <div class="grid md:grid-cols-2 gap-4">
+                    <label class="flex items-center gap-3 text-sm">
+                      <input
+                        type="checkbox"
+                        class="h-4 w-4 rounded text-emerald-600 audit-check"
+                        data-label="Sumber air minum bersih & cukup"
+                      />
+                      Air minum bersih (Ad-libitum)
+                    </label>
+                    <label class="flex items-center gap-3 text-sm">
+                      <input
+                        type="checkbox"
+                        class="h-4 w-4 rounded text-emerald-600 audit-check"
+                        data-label="Kualitas hijauan pakan terjamin"
+                      />
+                      Hijauan segar & berkualitas
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="step3" class="p-8 space-y-8 step-hidden text-center">
+              <div class="max-w-md mx-auto py-10">
+                <div
+                  class="mb-6 inline-flex h-20 w-20 bg-emerald-100 text-emerald-600 rounded-full items-center justify-center text-3xl animate-bounce"
+                >
+                  <i class="fa-solid fa-clipboard-check"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-slate-900">
+                  Audit Selesai!
+                </h2>
+                <p class="text-slate-500 mt-2">
+                  Data telah diverifikasi. Silakan tentukan status akhir vendor
+                  di bawah ini.
+                </p>
+              </div>
+
+              <div
+                class="bg-emerald-900 text-white p-8 rounded-3xl shadow-2xl text-left relative overflow-hidden"
+              >
+                <div
+                  class="absolute right-0 top-0 opacity-10 translate-x-1/4 -translate-y-1/4"
+                >
+                  <i class="fa-solid fa-cow fa-10x"></i>
+                </div>
+                <h4
+                  class="text-emerald-400 text-xs font-bold uppercase tracking-widest mb-4"
+                >
+                  Keputusan Strategis Dokter Hewan
+                </h4>
+                <select
+                  id="final_decision"
+                  class="w-full p-4 bg-emerald-800 border border-emerald-700 rounded-2xl text-lg font-bold outline-none focus:ring-2 focus:ring-emerald-400 transition"
+                >
+                  <option value="SANGAT LAYAK (REKOMENDASI UTAMA)">
+                    ⭐⭐⭐ SANGAT LAYAK
+                  </option>
+                  <option value="LAYAK (DENGAN PENGAWASAN)">
+                    ⭐⭐ LAYAK DENGAN CATATAN
+                  </option>
+                  <option value="TIDAK LAYAK / REJECTED">❌ TIDAK LAYAK</option>
+                </select>
+                <p class="mt-4 text-xs text-emerald-300 italic">
+                  *Laporan ini berlaku sebagai dokumen otoritas resmi dalam
+                  pemilihan vendor kurban tahun 2026.
+                </p>
+              </div>
+            </div>
+          </form>
+
+          <div
+            class="p-8 bg-slate-50 border-t flex justify-between items-center"
+          >
+            <button
+              id="prevBtn"
+              class="px-6 py-3 font-bold text-slate-400 hover:text-slate-600 transition step-hidden"
+            >
+              <i class="fa-solid fa-chevron-left mr-2"></i> KEMBALI
+            </button>
+
+            <button
+              id="nextBtn"
+              class="ml-auto bg-emerald-700 text-white px-10 py-4 rounded-2xl font-bold hover:bg-emerald-800 transition shadow-lg shadow-emerald-200"
+            >
+              TAHAP BERIKUTNYA <i class="fa-solid fa-arrow-right ml-2"></i>
+            </button>
+
+            <button
+              id="generateBtn"
+              class="ml-auto bg-blue-600 text-white px-10 py-4 rounded-2xl font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-200 step-hidden"
+            >
+              <span id="btnText"
+                ><i class="fa-solid fa-file-pdf mr-2"></i> TERBITKAN PDF</span
+              >
+              <span id="btnLoading" class="hidden"
+                ><i class="fa-solid fa-circle-notch animate-spin mr-2"></i>
+                MEMPROSES...</span
+              >
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div id="pdf-export-container">
+      <div class="p-12">
+        <div
+          class="flex justify-between items-end border-b-8 border-emerald-700 pb-6 mb-8"
+        >
+          <div>
+            <h1 class="text-4xl font-black text-emerald-800">
+              SERTIFIKAT AUDIT VENDOR
+            </h1>
+            <p
+              class="text-sm font-bold tracking-[0.2em] text-slate-500 mt-1 uppercase"
+            >
+              Surveilans Kesehatan & Kesejahteraan Hewan Kurban
+            </p>
+          </div>
+          <div class="text-right">
+            <div
+              class="bg-emerald-700 text-white px-4 py-2 font-bold rounded text-lg"
+            >
+              TAHUN 2026
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-8 mb-10">
+          <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
+            <h3
+              class="text-xs font-black text-emerald-700 uppercase mb-4 border-b border-emerald-200 pb-2"
+            >
+              Profil Peternakan
+            </h3>
+            <table class="w-full text-sm">
+              <tr class="h-8">
+                <td class="font-bold text-slate-500 w-1/3 text-xs uppercase">
+                  Nama Vendor
+                </td>
+                <td class="font-bold text-slate-800">
+                  : <span id="pdf_v_name"></span>
+                </td>
+              </tr>
+              <tr class="h-8">
+                <td class="font-bold text-slate-500 text-xs uppercase">
+                  Penanggung Jawab
+                </td>
+                <td class="font-semibold text-slate-800">
+                  : <span id="pdf_v_owner"></span>
+                </td>
+              </tr>
+              <tr class="h-8">
+                <td class="font-bold text-slate-500 text-xs uppercase">
+                  No. Kontak
+                </td>
+                <td class="font-semibold text-slate-800">
+                  : <span id="pdf_v_phone"></span>
+                </td>
+              </tr>
+              <tr class="h-8">
+                <td class="font-bold text-slate-500 text-xs uppercase">
+                  Alamat Lokasi
+                </td>
+                <td class="font-semibold text-slate-800 text-xs">
+                  : <span id="pdf_v_address"></span>
+                </td>
+              </tr>
+            </table>
+          </div>
+
+          <div
+            class="bg-emerald-50 p-6 rounded-2xl border-2 border-emerald-600 flex flex-col justify-center items-center text-center"
+          >
+            <h3 class="text-xs font-black text-emerald-700 uppercase mb-2">
+              Keputusan Akhir Otoritas
+            </h3>
+            <div
+              id="pdf_final_verdict"
+              class="text-xl font-black text-emerald-900 leading-tight"
+            ></div>
+            <p class="text-[10px] text-emerald-700 mt-4 italic">
+              Berdasarkan Standar ASUH & Kesejahteraan Hewan
+            </p>
+          </div>
+        </div>
+
+        <div class="mb-12">
+          <h3
+            class="text-xs font-black text-slate-700 uppercase mb-6 flex items-center gap-2"
+          >
+            <div class="h-4 w-1 bg-emerald-700"></div>
+            Hasil Pemeriksaan Detail Lapangan
+          </h3>
+          <div
+            id="pdf_checklist_grid"
+            class="grid grid-cols-2 gap-x-8 gap-y-3"
+          ></div>
+        </div>
+
+        <div class="mt-20 flex justify-between">
+          <div class="text-center w-64">
+            <p class="text-[10px] text-slate-400 uppercase mb-16 italic">
+              Perwakilan Vendor
+            </p>
+            <div class="border-t border-slate-300 pt-3">
+              <p class="font-bold text-slate-800">
+                (........................................)
+              </p>
+              <p class="text-[10px] text-slate-500">Stempel & Nama Jelas</p>
+            </div>
+          </div>
+
+          <div class="text-center w-64">
+            <p class="text-[10px] text-emerald-600 font-bold uppercase mb-12">
+              Diterbitkan Secara Digital Oleh:
+            </p>
+            <div class="mb-4">
+              <i
+                class="fa-solid fa-shield-check text-4xl text-emerald-700 opacity-20"
+              ></i>
+            </div>
+            <div class="border-t-2 border-emerald-700 pt-3">
+              <p class="font-black text-emerald-800 uppercase underline">
+                Dokter Hewan Pengawas
+              </p>
+              <p class="text-[10px] font-bold text-emerald-600">
+                Otoritas Kesehatan Hewan
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="mt-16 text-center border-t border-dashed border-slate-200 pt-4"
+        >
+          <p
+            class="text-[9px] text-slate-400 leading-relaxed uppercase tracking-widest"
+          >
+            Laporan ini dihasilkan secara otomatis melalui sistem VET-AUDIT.
+            Keaslian dokumen ini dapat dipertanggungjawabkan berdasarkan
+            regulasi UU No. 18 Tahun 2009.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const { jsPDF } = window.jspdf;
+      let currentStep = 1;
+
+      // Elements
+      const nextBtn = document.getElementById('nextBtn');
+      const prevBtn = document.getElementById('prevBtn');
+      const generateBtn = document.getElementById('generateBtn');
+      const btnText = document.getElementById('btnText');
+      const btnLoading = document.getElementById('btnLoading');
+
+      // Navigation Logic
+      nextBtn.addEventListener('click', () => {
+        if (currentStep === 1) {
+          document.getElementById('step1').classList.add('step-hidden');
+          document.getElementById('step2').classList.remove('step-hidden');
+          prevBtn.classList.remove('step-hidden');
+          updateProgress(2, 'Biosecurity Kandang', '66%');
+          currentStep = 2;
+        } else if (currentStep === 2) {
+          document.getElementById('step2').classList.add('step-hidden');
+          document.getElementById('step3').classList.remove('step-hidden');
+          nextBtn.classList.add('step-hidden');
+          generateBtn.classList.remove('step-hidden');
+          updateProgress(3, 'Finalisasi & Penerbitan', '100%');
+          currentStep = 3;
+        }
+      });
+
+      prevBtn.addEventListener('click', () => {
+        if (currentStep === 2) {
+          document.getElementById('step2').classList.add('step-hidden');
+          document.getElementById('step1').classList.remove('step-hidden');
+          prevBtn.classList.add('step-hidden');
+          updateProgress(1, 'Profil & Legalitas', '33%');
+          currentStep = 1;
+        } else if (currentStep === 3) {
+          document.getElementById('step3').classList.add('step-hidden');
+          document.getElementById('step2').classList.remove('step-hidden');
+          nextBtn.classList.remove('step-hidden');
+          generateBtn.classList.add('step-hidden');
+          updateProgress(2, 'Biosecurity Kandang', '66%');
+          currentStep = 2;
+        }
+      });
+
+      function updateProgress(step, label, percent) {
+        document.getElementById('progress-bar').style.width = percent;
+        document.getElementById('progress-percent').innerText = percent;
+        document.getElementById('step-label').innerText =
+          `Tahap ${step}: ${label}`;
+      }
+
+      // GENERATE PDF LOGIC
+      generateBtn.addEventListener('click', async () => {
+        // UI Loading State
+        btnText.classList.add('hidden');
+        btnLoading.classList.remove('hidden');
+        generateBtn.disabled = true;
+
+        try {
+          // 1. Map Input Data to PDF Template
+          document.getElementById('pdf_v_name').innerText =
+            document.getElementById('v_name').value || '(Kosong)';
+          document.getElementById('pdf_v_owner').innerText =
+            document.getElementById('v_owner').value || '(Kosong)';
+          document.getElementById('pdf_v_phone').innerText =
+            document.getElementById('v_phone').value || '(Kosong)';
+          document.getElementById('pdf_v_address').innerText =
+            document.getElementById('v_address').value || '(Kosong)';
+          document.getElementById('pdf_final_verdict').innerText =
+            document.getElementById('final_decision').value;
+
+          // 2. Map Checkboxes to PDF Checklist
+          const checklistGrid = document.getElementById('pdf_checklist_grid');
+          checklistGrid.innerHTML = '';
+
+          document.querySelectorAll('.audit-check').forEach((check) => {
+            const label = check.getAttribute('data-label');
+            const statusIcon = check.checked ? '✅' : '❌';
+            const statusColor = check.checked
+              ? 'text-emerald-700 font-bold'
+              : 'text-slate-300';
+
+            checklistGrid.innerHTML += `
+                        <div class="flex items-center gap-2 border-b border-slate-50 pb-2">
+                            <span class="text-sm">${statusIcon}</span>
+                            <span class="text-[10px] uppercase ${statusColor}">${label}</span>
+                        </div>
+                    `;
+          });
+
+          // 3. Render PDF with html2canvas
+          const element = document.getElementById('pdf-export-container');
+          const canvas = await html2canvas(element, {
+            scale: 3, // High quality
+            useCORS: true,
+            logging: false,
+            backgroundColor: '#FFFFFF',
+          });
+
+          const imgData = canvas.toDataURL('image/jpeg', 1.0);
+          const pdf = new jsPDF({
+            orientation: 'p',
+            unit: 'mm',
+            format: 'a4',
+            putOnlyUsedFonts: true,
+          });
+
+          const imgProps = pdf.getImageProperties(imgData);
+          const pdfWidth = pdf.internal.pageSize.getWidth();
+          const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+          pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+
+          const fileName = `Audit_Vendor_${document.getElementById('v_name').value || 'Qurban'}_2026.pdf`;
+          pdf.save(fileName);
+        } catch (error) {
+          console.error('PDF Error:', error);
+          alert('Gagal membuat PDF. Pastikan browser mendukung.');
+        } finally {
+          btnText.classList.remove('hidden');
+          btnLoading.classList.add('hidden');
+          generateBtn.disabled = false;
+        }
+      });
+    </script>
+  </body>
+</html>

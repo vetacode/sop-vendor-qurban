@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vendor Selection - Kurban Vet Control</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script src="https://unpkg.com/motion@10.16.4/dist/motion.umd.js"></script>
+  </head>
+
+  <body class="bg-gray-100">
+    <div class="max-w-5xl mx-auto p-6 space-y-6">
+      <!-- HEADER -->
+      <div class="bg-white p-6 rounded-2xl shadow">
+        <h1 class="text-2xl font-bold flex gap-3 items-center">
+          <i class="fa-solid fa-clipboard-check text-blue-600"></i>
+          Vendor Kurban Assessment
+        </h1>
+        <p class="text-gray-500">Form seleksi vendor oleh Dokter Hewan</p>
+      </div>
+
+      <!-- FORM VENDOR -->
+      <div class="bg-white p-6 rounded-2xl shadow space-y-4">
+        <h2 class="font-semibold text-lg">Profil Vendor</h2>
+
+        <div class="grid md:grid-cols-2 gap-4">
+          <input
+            id="nama"
+            placeholder="Nama Vendor"
+            class="border p-3 rounded-lg w-full"
+          />
+          <input
+            id="penanggung"
+            placeholder="Penanggung Jawab"
+            class="border p-3 rounded-lg w-full"
+          />
+          <input
+            id="kontak"
+            placeholder="No Kontak"
+            class="border p-3 rounded-lg w-full"
+          />
+          <input
+            id="alamat"
+            placeholder="Alamat"
+            class="border p-3 rounded-lg w-full"
+          />
+        </div>
+      </div>
+
+      <!-- PROGRESS -->
+      <div class="bg-white p-6 rounded-2xl shadow">
+        <h2 class="font-semibold">Progress Checklist</h2>
+        <div class="w-full bg-gray-200 rounded-full h-4 mt-2">
+          <div id="progressBar" class="bg-green-500 h-4 rounded-full w-0"></div>
+        </div>
+        <p class="text-sm mt-1 text-gray-500">
+          <span id="progressText">0%</span>
+        </p>
+      </div>
+
+      <!-- CHECKLIST -->
+      <div class="bg-white p-6 rounded-2xl shadow">
+        <h2 class="font-semibold mb-4">Checklist Evaluasi Vendor</h2>
+
+        <div class="grid md:grid-cols-2 gap-4 checklist">
+          <label><input type="checkbox" class="chk" /> SKKH tersedia</label>
+          <label
+            ><input type="checkbox" class="chk" /> Terdaftar iSIKHNAS</label
+          >
+          <label><input type="checkbox" class="chk" /> Asal ternak jelas</label>
+          <label
+            ><input type="checkbox" class="chk" /> Tidak ada penyakit
+            klinis</label
+          >
+
+          <label
+            ><input type="checkbox" class="chk" /> Tidak ada PMK / LSD</label
+          >
+          <label><input type="checkbox" class="chk" /> BCS minimal 2.5</label>
+          <label><input type="checkbox" class="chk" /> Kandang bersih</label>
+          <label
+            ><input type="checkbox" class="chk" /> Air minum tersedia</label
+          >
+
+          <label><input type="checkbox" class="chk" /> Tidak overcrowded</label>
+          <label
+            ><input type="checkbox" class="chk" /> Transportasi layak</label
+          >
+          <label><input type="checkbox" class="chk" /> Tidak stres</label>
+          <label
+            ><input type="checkbox" class="chk" /> Riwayat vaksin jelas</label
+          >
+        </div>
+      </div>
+
+      <!-- SCORING -->
+      <div class="bg-white p-6 rounded-2xl shadow">
+        <h2 class="font-semibold">Penilaian Vendor</h2>
+
+        <input
+          id="score"
+          type="number"
+          placeholder="Input skor 0 - 100"
+          class="border p-3 rounded-lg w-full mt-3"
+        />
+
+        <div id="status" class="mt-3 text-lg font-bold"></div>
+      </div>
+
+      <!-- BUTTON -->
+      <div class="text-center">
+        <button
+          onclick="generatePDF()"
+          class="bg-blue-600 text-white px-6 py-3 rounded-xl shadow hover:bg-blue-700 transition"
+        >
+          <i class="fa-solid fa-file-pdf"></i> Generate Report PDF
+        </button>
+      </div>
+    </div>
+
+    <script>
+      const checkboxes = document.querySelectorAll('.chk');
+      const progressBar = document.getElementById('progressBar');
+      const progressText = document.getElementById('progressText');
+      const scoreInput = document.getElementById('score');
+      const statusDiv = document.getElementById('status');
+
+      function updateProgress() {
+        let total = checkboxes.length;
+        let checked = document.querySelectorAll('.chk:checked').length;
+        let percent = Math.round((checked / total) * 100);
+
+        progressBar.style.width = percent + '%';
+        progressText.innerText = percent + '%';
+      }
+
+      checkboxes.forEach((cb) => cb.addEventListener('change', updateProgress));
+
+      scoreInput.addEventListener('input', () => {
+        let score = scoreInput.value;
+
+        if (score >= 75) {
+          statusDiv.innerHTML = "<span class='text-green-600'>APPROVED</span>";
+        } else {
+          statusDiv.innerHTML = "<span class='text-red-600'>REJECTED</span>";
+        }
+      });
+
+      function generatePDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        let nama = document.getElementById('nama').value;
+        let penanggung = document.getElementById('penanggung').value;
+        let kontak = document.getElementById('kontak').value;
+        let alamat = document.getElementById('alamat').value;
+        let score = scoreInput.value;
+        let status = score >= 75 ? 'APPROVED' : 'REJECTED';
+
+        doc.setFontSize(14);
+        doc.text('LAPORAN SELEKSI VENDOR KURBAN', 10, 10);
+
+        doc.setFontSize(10);
+        doc.text('Nama Vendor: ' + nama, 10, 20);
+        doc.text('Penanggung Jawab: ' + penanggung, 10, 26);
+        doc.text('Kontak: ' + kontak, 10, 32);
+        doc.text('Alamat: ' + alamat, 10, 38);
+
+        doc.text('Skor: ' + score, 10, 48);
+        doc.text('Status: ' + status, 10, 54);
+
+        doc.text('Checklist:', 10, 64);
+
+        let y = 70;
+        checkboxes.forEach((cb) => {
+          let label = cb.parentElement.innerText;
+          let val = cb.checked ? 'OK' : 'X';
+          doc.text(label + ' : ' + val, 10, y);
+          y += 6;
+        });
+
+        doc.save('laporan_vendor.pdf');
+      }
+
+      // Animation
+      window.onload = () => {
+        const { animate } = window.motion;
+        animate('div', { opacity: [0, 1], y: [20, 0] }, { duration: 0.5 });
+      };
+    </script>
+  </body>
+</html>

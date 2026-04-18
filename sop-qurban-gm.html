@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SOP Pengawasan Hewan Kurban - Vet Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="https://unpkg.com/framer-motion@10.12.16/dist/framer-motion.js"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f8fafc;
+      }
+      .checkbox-custom:checked + label {
+        text-decoration: line-through;
+        color: #94a3b8;
+      }
+    </style>
+  </head>
+  <body class="p-4 md:p-8">
+    <div class="max-w-4xl mx-auto">
+      <header class="mb-8 border-b pb-6">
+        <div class="flex items-center gap-4 mb-2">
+          <div class="bg-emerald-600 text-white p-3 rounded-lg">
+            <i class="fa-solid fa-stethoscopes fa-2x"></i>
+          </div>
+          <div>
+            <h1 class="text-3xl font-bold text-slate-900">Vet-Check Qurban</h1>
+            <p class="text-slate-500 font-medium">
+              Dashboard Pengawas Lapangan (ASUH Compliant)
+            </p>
+          </div>
+        </div>
+        <div
+          class="flex flex-wrap gap-2 mt-4 text-xs font-semibold uppercase tracking-wider text-slate-400"
+        >
+          <span class="bg-slate-200 px-2 py-1 rounded">UU 18/2009</span>
+          <span class="bg-slate-200 px-2 py-1 rounded">PERMENTAN 114/2014</span>
+          <span
+            class="bg-emerald-100 text-emerald-700 px-2 py-1 rounded border border-emerald-200"
+            >iSIKHNAS Verified</span
+          >
+        </div>
+      </header>
+
+      <main id="app-container" class="space-y-6">
+        <section
+          class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden"
+        >
+          <div
+            class="p-4 bg-slate-50 border-b flex justify-between items-center"
+          >
+            <h2 class="font-bold text-slate-800">
+              <i class="fa-solid fa-truck-moving mr-2 text-blue-600"></i> I.
+              SELEKSI VENDOR (H-30)
+            </h2>
+            <span
+              class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-full font-bold"
+              >Bobot: 40%</span
+            >
+          </div>
+          <div class="p-6 space-y-4">
+            <div class="grid md:grid-cols-2 gap-6">
+              <div class="space-y-3">
+                <p class="text-sm font-bold text-slate-500 uppercase">
+                  Screening Dokumen
+                </p>
+                <div class="flex items-start gap-3">
+                  <input
+                    type="checkbox"
+                    id="v1"
+                    class="checkbox-custom mt-1 h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
+                  />
+                  <label for="v1" class="text-sm text-slate-700"
+                    >SKKH (Surat Keterangan Kesehatan Hewan)</label
+                  >
+                </div>
+                <div class="flex items-start gap-3">
+                  <input
+                    type="checkbox"
+                    id="v2"
+                    class="checkbox-custom mt-1 h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
+                  />
+                  <label for="v2" class="text-sm text-slate-700"
+                    >Farm Traceability (Asal Hewan Jelas)</label
+                  >
+                </div>
+                <div
+                  class="flex items-start gap-3 border-l-2 border-red-500 pl-3"
+                >
+                  <input
+                    type="checkbox"
+                    id="v3"
+                    class="checkbox-custom mt-1 h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
+                  />
+                  <label
+                    for="v3"
+                    class="text-sm text-red-600 font-semibold italic italic"
+                    >REJECT: Jika tidak terdata iSIKHNAS</label
+                  >
+                </div>
+              </div>
+              <div
+                class="bg-slate-50 p-4 rounded-lg border border-dashed border-slate-300"
+              >
+                <p class="text-sm font-bold text-slate-500 mb-2 uppercase">
+                  Audit Lapangan (Kandang)
+                </p>
+                <ul class="text-sm space-y-2 text-slate-600">
+                  <li>
+                    <i class="fa-solid fa-check text-emerald-500 mr-2"></i>
+                    Ventilasi & Kebersihan Oke
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-check text-emerald-500 mr-2"></i>
+                    Bebas Gejala PMK/LSD
+                  </li>
+                  <li>
+                    <i class="fa-solid fa-check text-emerald-500 mr-2"></i> BCS
+                    (Body Score) ≥ 2.5
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden"
+        >
+          <div
+            class="p-4 bg-slate-50 border-b flex justify-between items-center"
+          >
+            <h2 class="font-bold text-slate-800">
+              <i class="fa-solid fa-cow mr-2 text-emerald-600"></i> II.
+              ANTE-MORTEM (H-1)
+            </h2>
+            <span
+              class="text-xs bg-red-100 text-red-700 px-2 py-1 rounded-full font-bold italic underline"
+              >Otoritas Dokter</span
+            >
+          </div>
+          <div class="p-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+              <button
+                onclick="toggleVerify(this)"
+                class="p-3 border rounded-lg hover:bg-slate-50 transition border-slate-200 group"
+              >
+                <i
+                  class="fa-solid fa-teeth-open block mb-2 text-slate-400 group-active:scale-90"
+                ></i>
+                <span class="text-xs font-bold">Poel (Umur)</span>
+              </button>
+              <button
+                onclick="toggleVerify(this)"
+                class="p-3 border rounded-lg hover:bg-slate-50 transition border-slate-200"
+              >
+                <i class="fa-solid fa-eye block mb-2 text-slate-400"></i>
+                <span class="text-xs font-bold">Mata Cerah</span>
+              </button>
+              <button
+                onclick="toggleVerify(this)"
+                class="p-3 border rounded-lg hover:bg-slate-50 transition border-slate-200"
+              >
+                <i
+                  class="fa-solid fa-temperature-half block mb-2 text-slate-400"
+                ></i>
+                <span class="text-xs font-bold">Suhu 38-39°C</span>
+              </button>
+              <button
+                onclick="toggleVerify(this)"
+                class="p-3 border rounded-lg hover:bg-slate-50 transition border-slate-200"
+              >
+                <i class="fa-solid fa-walking block mb-2 text-slate-400"></i>
+                <span class="text-xs font-bold">Tidak Pincang</span>
+              </button>
+            </div>
+            <div
+              class="mt-6 p-4 bg-amber-50 rounded-lg flex items-start gap-3 border border-amber-200"
+            >
+              <i
+                class="fa-solid fa-triangle-exclamation text-amber-600 mt-1"
+              ></i>
+              <p class="text-xs text-amber-800 italic">
+                Catatan: Jika ditemukan hewan pincang berat atau buta, segera
+                pasang label <strong>AFKIR</strong> dan pisahkan dari kelompok.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden"
+        >
+          <div
+            class="p-4 bg-slate-900 text-white border-b flex justify-between items-center"
+          >
+            <h2 class="font-bold">
+              <i class="fa-solid fa-knife mr-2 text-red-500"></i> III. HARI H:
+              PENYEMBELIHAN & DAGING
+            </h2>
+            <span class="text-xs bg-red-600 px-2 py-1 rounded-full font-bold"
+              >Critical Point</span
+            >
+          </div>
+          <div class="p-6 space-y-6">
+            <div class="space-y-3">
+              <p class="text-sm font-bold text-slate-500 uppercase">
+                Welfare & Halal Check
+              </p>
+              <div
+                class="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-200"
+              >
+                <span class="text-sm font-medium"
+                  >Pisau sangat tajam & Muslim kompeten</span
+                >
+                <i
+                  class="fa-solid fa-check-circle text-slate-300"
+                  id="status-halal"
+                ></i>
+              </div>
+              <div
+                class="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-200"
+              >
+                <span class="text-sm font-medium"
+                  >Visual hewan lain tertutup</span
+                >
+                <i
+                  class="fa-solid fa-check-circle text-slate-300"
+                  id="status-welfare"
+                ></i>
+              </div>
+            </div>
+
+            <div class="space-y-3">
+              <p class="text-sm font-bold text-slate-500 uppercase">
+                Pemeriksaan Organ (Post-Mortem)
+              </p>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="p-4 border rounded-lg bg-white border-slate-200">
+                  <span class="block font-bold text-sm mb-1 text-slate-700"
+                    >Hati (Hepar)</span
+                  >
+                  <p class="text-[10px] text-slate-500 mb-2 italic">
+                    Cek: Cacing Hati (Fasciola)
+                  </p>
+                  <select
+                    class="w-full text-xs p-2 rounded border border-slate-300 focus:ring-emerald-500"
+                  >
+                    <option>LAYAK - Sehat</option>
+                    <option class="text-amber-600 font-bold">
+                      AFKIR SEBAGIAN - Cacing
+                    </option>
+                    <option class="text-red-600 font-bold">
+                      AFKIR TOTAL - Abses/Infeksi
+                    </option>
+                  </select>
+                </div>
+                <div class="p-4 border rounded-lg bg-white border-slate-200">
+                  <span class="block font-bold text-sm mb-1 text-slate-700"
+                    >Paru-paru</span
+                  >
+                  <p class="text-[10px] text-slate-500 mb-2 italic">
+                    Cek: Pneumonia/Cairan
+                  </p>
+                  <select
+                    class="w-full text-xs p-2 rounded border border-slate-300 focus:ring-emerald-500"
+                  >
+                    <option>LAYAK - Merah Muda</option>
+                    <option class="text-red-600 font-bold">
+                      AFKIR - Peradangan
+                    </option>
+                  </select>
+                </div>
+                <div class="p-4 border rounded-lg bg-white border-slate-200">
+                  <span class="block font-bold text-sm mb-1 text-slate-700"
+                    >Limpa & Daging</span
+                  >
+                  <p class="text-[10px] text-slate-500 mb-2 italic">
+                    Cek: Anthrax (Waspada!)
+                  </p>
+                  <select
+                    class="w-full text-xs p-2 rounded border border-slate-300 focus:ring-emerald-500"
+                  >
+                    <option>LAYAK - Normal</option>
+                    <option class="text-red-600 font-bold text-xl">
+                      DANGER - Hubungi Dinas!
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden p-6 border-l-4 border-l-blue-500"
+        >
+          <div class="flex flex-col md:flex-row justify-between gap-4">
+            <div class="space-y-2">
+              <h3 class="font-bold text-slate-800 italic uppercase">
+                Logistik & Distribusi (ASUH)
+              </h3>
+              <ul class="text-sm space-y-1 text-slate-600">
+                <li>
+                  <i
+                    class="fa-solid fa-circle-dot text-blue-500 mr-2 text-[8px]"
+                  ></i>
+                  Wadah: Plastik Food Grade / Besek
+                </li>
+                <li>
+                  <i
+                    class="fa-solid fa-circle-dot text-blue-500 mr-2 text-[8px]"
+                  ></i>
+                  Max Jeda Potong: 4 Jam
+                </li>
+                <li>
+                  <i
+                    class="fa-solid fa-circle-dot text-blue-500 mr-2 text-[8px]"
+                  ></i>
+                  Alas: Bukan di tanah langsung
+                </li>
+              </ul>
+            </div>
+            <div class="flex items-center">
+              <button
+                class="bg-emerald-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-emerald-700 transition shadow-lg shadow-emerald-200 w-full md:w-auto"
+              >
+                <i class="fa-solid fa-file-export mr-2"></i> GENERATE LAPORAN
+                VET
+              </button>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer
+        class="mt-8 text-center text-slate-400 text-[10px] uppercase tracking-widest"
+      >
+        Vet-Check Assistant &bull; Digital SOP &bull; © 2026 Otoritas Kesehatan
+        Hewan
+      </footer>
+    </div>
+
+    <script>
+      // Interactive Logic
+      function toggleVerify(el) {
+        const icon = el.querySelector('i');
+        if (el.classList.contains('bg-emerald-50')) {
+          el.classList.remove(
+            'bg-emerald-50',
+            'border-emerald-500',
+            'text-emerald-700',
+          );
+          el.classList.add('border-slate-200', 'text-slate-400');
+          icon.classList.replace('text-emerald-500', 'text-slate-400');
+        } else {
+          el.classList.remove('border-slate-200', 'text-slate-400');
+          el.classList.add(
+            'bg-emerald-50',
+            'border-emerald-500',
+            'text-emerald-700',
+          );
+          icon.classList.replace('text-slate-400', 'text-emerald-500');
+
+          // Trigger Simple Animation
+          el.classList.add('animate-pulse');
+          setTimeout(() => el.classList.remove('animate-pulse'), 500);
+        }
+      }
+
+      // Logic for Halal & Welfare indicators
+      const indicators = ['status-halal', 'status-welfare'];
+      indicators.forEach((id) => {
+        const el = document.getElementById(id);
+        el.parentElement.addEventListener('click', () => {
+          if (el.classList.contains('text-emerald-500')) {
+            el.classList.replace('text-emerald-500', 'text-slate-300');
+          } else {
+            el.classList.replace('text-slate-300', 'text-emerald-500');
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
