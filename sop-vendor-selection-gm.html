@@ -9,6 +9,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+    <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
@@ -20,6 +21,115 @@
       }
       .step-hidden {
         display: none;
+      }
+      /* ShadCN Dropdown Styles */
+      .shadcn-dropdown-wrapper {
+        position: relative;
+      }
+      .shadcn-dropdown-trigger {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+        background-color: #065f46;
+        border: 1.5px solid #047857;
+        border-radius: 1.5rem;
+        font-size: 1.125rem;
+        font-weight: 700;
+        color: white;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .shadcn-dropdown-trigger:hover {
+        background-color: #059669;
+        border-color: #10b981;
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+      }
+      .shadcn-dropdown-trigger:focus-visible {
+        outline: none;
+        box-shadow:
+          0 0 0 3px rgba(16, 185, 129, 0.1),
+          0 0 0 2px white,
+          0 0 0 4px #10b981;
+      }
+      .shadcn-dropdown-trigger.open {
+        border-color: #10b981;
+        background-color: #059669;
+      }
+      .shadcn-dropdown-trigger svg {
+        width: 1.25rem;
+        height: 1.25rem;
+        transition: transform 0.3s ease;
+      }
+      .shadcn-dropdown-trigger.open svg {
+        transform: rotate(180deg);
+      }
+      .shadcn-dropdown-menu {
+        position: absolute;
+        top: calc(100% + 0.5rem);
+        left: 0;
+        right: 0;
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 1rem;
+        box-shadow:
+          0 10px 25px rgba(0, 0, 0, 0.1),
+          0 0 0 1px rgba(0, 0, 0, 0.05);
+        z-index: 50;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-8px) scale(0.95);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .shadcn-dropdown-menu.open {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0) scale(1);
+      }
+      .shadcn-dropdown-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.875rem 1rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border: none;
+        background: none;
+        width: 100%;
+        text-align: left;
+        font-size: 0.95rem;
+        color: #1f2937;
+        position: relative;
+      }
+      .shadcn-dropdown-item:first-child {
+        border-radius: 1rem 1rem 0 0;
+      }
+      .shadcn-dropdown-item:last-child {
+        border-radius: 0 0 1rem 1rem;
+      }
+      .shadcn-dropdown-item:hover {
+        background-color: #f3f4f6;
+      }
+      .shadcn-dropdown-item.selected {
+        background-color: #ecfdf5;
+        color: #047857;
+        font-weight: 600;
+      }
+      .shadcn-dropdown-item.selected::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background-color: #10b981;
+        border-radius: 0 3px 3px 0;
+      }
+      .shadcn-dropdown-item .stars {
+        display: flex;
+        gap: 0.2rem;
+        font-size: 1.1rem;
       }
       /* Style khusus untuk menangkap elemen tanpa merusak layout utama */
       #pdf-export-container {
@@ -326,18 +436,63 @@
                 >
                   Keputusan Strategis Dokter Hewan
                 </h4>
-                <select
-                  id="final_decision"
-                  class="w-full p-4 bg-emerald-800 border border-emerald-700 rounded-2xl text-lg font-bold outline-none focus:ring-2 focus:ring-emerald-400 transition"
-                >
-                  <option value="SANGAT LAYAK (REKOMENDASI UTAMA)">
-                    ⭐⭐⭐ SANGAT LAYAK
-                  </option>
-                  <option value="LAYAK (DENGAN PENGAWASAN)">
-                    ⭐⭐ LAYAK DENGAN CATATAN
-                  </option>
-                  <option value="TIDAK LAYAK / REJECTED">❌ TIDAK LAYAK</option>
-                </select>
+                <div class="shadcn-dropdown-wrapper z-100">
+                  <button
+                    type="button"
+                    class="shadcn-dropdown-trigger"
+                    id="dropdownTrigger"
+                  >
+                    <span class="flex items-center gap-2">
+                      <span class="stars" id="triggerStars">⭐⭐⭐</span>
+                      <span id="triggerText">SANGAT LAYAK</span>
+                    </span>
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                      ></path>
+                    </svg>
+                  </button>
+                  <div class="shadcn-dropdown-menu" id="dropdownMenu">
+                    <button
+                      type="button"
+                      class="shadcn-dropdown-item selected"
+                      data-value="SANGAT LAYAK (REKOMENDASI UTAMA)"
+                      data-stars="⭐⭐⭐"
+                      data-label="SANGAT LAYAK"
+                    >
+                      <span class="stars">⭐⭐⭐</span>
+                      <span>SANGAT LAYAK</span>
+                    </button>
+                    <button
+                      type="button"
+                      class="shadcn-dropdown-item"
+                      data-value="LAYAK (DENGAN PENGAWASAN)"
+                      data-stars="⭐⭐"
+                      data-label="LAYAK DENGAN CATATAN"
+                    >
+                      <span class="stars">⭐⭐</span>
+                      <span>LAYAK DENGAN CATATAN</span>
+                    </button>
+                    <button
+                      type="button"
+                      class="shadcn-dropdown-item"
+                      data-value="TIDAK LAYAK / REJECTED"
+                      data-stars="❌"
+                      data-label="TIDAK LAYAK"
+                    >
+                      <span class="stars">❌</span>
+                      <span>TIDAK LAYAK</span>
+                    </button>
+                  </div>
+                  <input
+                    type="hidden"
+                    id="final_decision"
+                    value="SANGAT LAYAK (REKOMENDASI UTAMA)"
+                  />
+                </div>
                 <p class="mt-4 text-xs text-emerald-300 italic">
                   *Laporan ini berlaku sebagai dokumen otoritas resmi dalam
                   pemilihan vendor kurban tahun 2026.
@@ -575,6 +730,54 @@
         document.getElementById('step-label').innerText =
           `Tahap ${step}: ${label}`;
       }
+
+      // ShadCN Dropdown Logic
+      const dropdownTrigger = document.getElementById('dropdownTrigger');
+      const dropdownMenu = document.getElementById('dropdownMenu');
+      const dropdownItems = document.querySelectorAll('.shadcn-dropdown-item');
+      const finalDecisionInput = document.getElementById('final_decision');
+      const triggerText = document.getElementById('triggerText');
+      const triggerStars = document.getElementById('triggerStars');
+
+      dropdownTrigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdownMenu.classList.toggle('open');
+        dropdownTrigger.classList.toggle('open');
+      });
+
+      dropdownItems.forEach((item) => {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+
+          const value = item.getAttribute('data-value');
+          const label = item.getAttribute('data-label');
+          const stars = item.getAttribute('data-stars');
+
+          finalDecisionInput.value = value;
+          triggerText.textContent = label;
+          triggerStars.textContent = stars;
+
+          dropdownItems.forEach((i) => i.classList.remove('selected'));
+          item.classList.add('selected');
+
+          dropdownMenu.classList.remove('open');
+          dropdownTrigger.classList.remove('open');
+        });
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.shadcn-dropdown-wrapper')) {
+          dropdownMenu.classList.remove('open');
+          dropdownTrigger.classList.remove('open');
+        }
+      });
+
+      // Prevent menu from closing when clicking inside
+      dropdownMenu.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
 
       // GENERATE PDF LOGIC
       generateBtn.addEventListener('click', async () => {
