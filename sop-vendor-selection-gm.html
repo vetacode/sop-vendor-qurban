@@ -555,37 +555,39 @@
           </form>
 
           <div
-            class="p-8 bg-slate-50 border-t flex justify-between items-center flex-col sm:flex-row gap-4"
+            class="p-8 bg-slate-50 border-t flex flex-col sm:flex-row gap-4 items-center sm:items-center"
           >
             <button
               id="prevBtn"
-              class="px-6 py-3 font-bold text-slate-400 hover:text-slate-600 transition step-hidden"
+              class="w-full sm:w-auto text-center px-6 py-3 font-bold text-slate-400 hover:text-slate-600 transition step-hidden"
             >
               <i class="fa-solid fa-chevron-left mr-2"></i> KEMBALI
             </button>
+
             <div
-              class="text-xs font-semibold bg-amber-600/90 px-3 py-2 rounded-full border border-amber-700 text-white"
+              class="w-full sm:w-auto text-center text-xs font-semibold bg-amber-600/90 px-3 py-2 rounded-full border border-amber-700 text-white"
             >
               STATUS: OTORITAS DOKTER HEWAN
             </div>
+
             <button
               id="nextBtn"
-              class="ml-auto bg-emerald-700 text-white sm:px-10 px-5 sm:py-4 py-2 rounded-full font-bold hover:bg-emerald-800 transition shadow-lg shadow-emerald-200"
+              class="w-full sm:w-auto text-center bg-emerald-700 text-white sm:px-10 px-5 sm:py-4 py-2 rounded-full font-bold hover:bg-emerald-800 transition shadow-lg shadow-emerald-200 sm:ml-auto"
             >
               TAHAP BERIKUTNYA <i class="fa-solid fa-arrow-right ml-2"></i>
             </button>
 
             <button
               id="generateBtn"
-              class="ml-auto bg-blue-600 text-white px-10 py-4 rounded-2xl font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-200 step-hidden"
+              class="w-full sm:w-auto text-center bg-blue-600 text-white px-10 py-4 rounded-2xl font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-200 step-hidden sm:ml-auto"
             >
-              <span id="btnText"
-                ><i class="fa-solid fa-file-pdf mr-2"></i> TERBITKAN PDF</span
-              >
-              <span id="btnLoading" class="hidden"
-                ><i class="fa-solid fa-circle-notch animate-spin mr-2"></i>
-                MEMPROSES...</span
-              >
+              <span id="btnText">
+                <i class="fa-solid fa-file-pdf mr-2"></i> TERBITKAN PDF
+              </span>
+              <span id="btnLoading" class="hidden">
+                <i class="fa-solid fa-circle-notch animate-spin mr-2"></i>
+                MEMPROSES...
+              </span>
             </button>
           </div>
         </div>
