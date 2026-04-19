@@ -844,12 +844,53 @@
         e.stopPropagation();
       });
 
+      //SEND TO GOOGLE SHEET
+      async function sendToGoogleSheet(data) {
+        const url =
+          'https://script.google.com/macros/s/AKfycbzOKrwxMTtcz1eY1eLWovA0omGfTFl_uCFiEEpmoLQGPSjfLfraj_jDheZyzyuOKwZG/exec';
+
+        const formData = new URLSearchParams();
+        for (const key in data) {
+          formData.append(key, data[key]);
+        }
+
+        try {
+          await fetch(url, {
+            method: 'POST',
+            body: formData,
+          });
+        } catch (err) {
+          console.error('Gagal kirim ke Google Sheet', err);
+        }
+      }
+
       // GENERATE PDF LOGIC
       generateBtn.addEventListener('click', async () => {
         // UI Loading State
         btnText.classList.add('hidden');
         btnLoading.classList.remove('hidden');
         generateBtn.disabled = true;
+
+        // === KUMPULKAN DATA ===
+        const checklistData = [];
+        document.querySelectorAll('.audit-check').forEach((check) => {
+          checklistData.push({
+            label: check.getAttribute('data-label'),
+            value: check.checked ? 1 : 0,
+          });
+        });
+
+        const payload = {
+          nama_vendor: document.getElementById('v_name').value,
+          penanggung_jawab: document.getElementById('v_owner').value,
+          kontak: document.getElementById('v_phone').value,
+          alamat: document.getElementById('v_address').value,
+          keputusan: document.getElementById('final_decision').value,
+          checklist: JSON.stringify(checklistData),
+        };
+
+        // === KIRIM KE GOOGLE SHEET ===
+        await sendToGoogleSheet(payload);
 
         try {
           // 1. Map Input Data to PDF Template
@@ -920,3 +961,13 @@
     </script>
   </body>
 </html>
+
+(Deployment ID)
+//AKfycbzOKrwxMTtcz1eY1eLWovA0omGfTFl_uCFiEEpmoLQGPSjfLfraj_jDheZyzyuOKwZG
+AKfycbzOKrwxMTtcz1eY1eLWovA0omGfTFl_uCFiEEpmoLQGPSjfLfraj_jDheZyzyuOKwZG (Web
+app)
+//https://script.google.com/macros/s/AKfycbzOKrwxMTtcz1eY1eLWovA0omGfTFl_uCFiEEpmoLQGPSjfLfraj_jDheZyzyuOKwZG/exec
+https://script.google.com/macros/s/AKfycbzOKrwxMTtcz1eY1eLWovA0omGfTFl_uCFiEEpmoLQGPSjfLfraj_jDheZyzyuOKwZG/exec
+(Library)
+//https://script.google.com/macros/library/d/1FE_CABzEIGWLLaLIrkbv7rurANNBVaER_soq6MrM653ey4OHKOVjapOn/1
+https://script.google.com/macros/library/d/1FE_CABzEIGWLLaLIrkbv7rurANNBVaER_soq6MrM653ey4OHKOVjapOn/2
