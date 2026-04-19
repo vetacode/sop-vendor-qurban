@@ -25,6 +25,7 @@
       /* ShadCN Dropdown Styles */
       .shadcn-dropdown-wrapper {
         position: relative;
+        overflow: visible;
         z-index: 10;
       }
       .shadcn-dropdown-trigger {
@@ -231,7 +232,7 @@
         </div>
 
         <div class="bg-white rounded-3xl shadow-xl border border-slate-200">
-          <form id="auditForm" class="overflow-hidden">
+          <form id="auditForm" class="overflow-visible">
             <div id="step1" class="p-8 space-y-6">
               <div class="flex items-center gap-4 mb-6">
                 <div
@@ -472,7 +473,7 @@
               </div>
 
               <div
-                class="bg-emerald-900 text-white p-4 md:p-8 rounded-3xl shadow-2xl text-left relative"
+                class="bg-emerald-900 text-white p-4 md:p-8 rounded-3xl shadow-2xl text-left relative overflow-visible"
               >
                 <div
                   class="absolute right-0 top-0 opacity-10 translate-x-1/4 -translate-y-1/4 hidden md:block"
@@ -484,7 +485,7 @@
                 >
                   Keputusan Strategis Dokter Hewan
                 </h4>
-                <div class="shadcn-dropdown-wrapper z-100">
+                <div class="shadcn-dropdown-wrapper">
                   <button
                     type="button"
                     class="shadcn-dropdown-trigger"
