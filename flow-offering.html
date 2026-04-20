@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Qurban Flow 2026 - Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap');
+      body {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        background-color: #f8fafc;
+      }
+      .card-active {
+        border-left: 4px solid #10b981;
+        background: white;
+      }
+      .timeline-line {
+        position: absolute;
+        left: 20px;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: #e2e8f0;
+        z-index: 0;
+      }
+    </style>
+  </head>
+  <body class="antialiased">
+    <div class="flex flex-col md:flex-row min-h-screen">
+      <aside class="w-full md:w-64 bg-slate-900 text-slate-300 p-6">
+        <div class="flex items-center gap-3 mb-10">
+          <div class="bg-emerald-500 p-2 rounded-lg text-white">
+            <i class="fa-solid fa-mosque"></i>
+          </div>
+          <h1 class="text-xl font-bold text-white tracking-tight">
+            QurbanFlow
+          </h1>
+        </div>
+
+        <nav class="space-y-1">
+          <a
+            href="#"
+            class="flex items-center gap-3 p-3 bg-emerald-600/10 text-emerald-400 rounded-xl font-semibold border border-emerald-500/20"
+          >
+            <i class="fa-solid fa-chart-line w-5"></i> Dashboard
+          </a>
+          <a
+            href="#"
+            class="flex items-center gap-3 p-3 hover:bg-slate-800 rounded-xl transition"
+          >
+            <i class="fa-solid fa-truck-field w-5"></i> Vendor Strategy
+          </a>
+          <a
+            href="#"
+            class="flex items-center gap-3 p-3 hover:bg-slate-800 rounded-xl transition"
+          >
+            <i class="fa-solid fa-users w-5"></i> Reservasi Warga
+          </a>
+          <a
+            href="#"
+            class="flex items-center gap-3 p-3 hover:bg-slate-800 rounded-xl transition"
+          >
+            <i class="fa-solid fa-calendar-check w-5"></i> Timeline Ops
+          </a>
+        </nav>
+
+        <div class="mt-20 p-4 bg-slate-800 rounded-2xl border border-slate-700">
+          <p
+            class="text-[10px] uppercase font-bold text-slate-500 mb-2 tracking-widest"
+          >
+            Otoritas Vet
+          </p>
+          <div class="flex items-center gap-3">
+            <div
+              class="h-8 w-8 bg-emerald-500 rounded-full flex items-center justify-center text-white font-bold text-xs"
+            >
+              V
+            </div>
+            <div>
+              <p class="text-xs font-bold text-white">Drh. Pengawas</p>
+              <p class="text-[10px]">Verified Access</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <main class="flex-1 p-4 md:p-10 overflow-y-auto">
+        <header
+          class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8"
+        >
+          <div>
+            <h2 class="text-2xl font-bold text-slate-800">
+              Alur Strategi Pre-Booking
+            </h2>
+            <p class="text-slate-500 text-sm">
+              Sistem Jaminan Kualitas & Reservasi Berbasis Spesifikasi
+            </p>
+          </div>
+          <div class="flex gap-2">
+            <button
+              class="bg-white border border-slate-200 px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 hover:bg-slate-50"
+            >
+              <i class="fa-solid fa-download"></i> Export Alur
+            </button>
+            <button
+              class="bg-emerald-600 text-white px-4 py-2 rounded-xl text-sm font-bold shadow-lg shadow-emerald-100 hover:bg-emerald-700"
+            >
+              Update Status H-30
+            </button>
+          </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <section class="space-y-6">
+            <div class="flex items-center gap-2 mb-2">
+              <i class="fa-solid fa-tags text-blue-500"></i>
+              <h3
+                class="font-bold text-slate-700 uppercase text-xs tracking-widest"
+              >
+                1. Status Vendor (Current)
+              </h3>
+            </div>
+
+            <div class="space-y-4">
+              <div
+                class="bg-white p-4 rounded-2xl shadow-sm border-l-4 border-emerald-500"
+              >
+                <div class="flex justify-between items-start">
+                  <h4 class="font-bold text-slate-800">Sapi Bali Perkasa</h4>
+                  <span
+                    class="bg-emerald-100 text-emerald-700 text-[10px] px-2 py-0.5 rounded-full font-bold"
+                    >PRIMARY</span
+                  >
+                </div>
+                <p class="text-xs text-slate-500 mt-1">
+                  Visual Oke, Dokumen Process
+                </p>
+                <div class="mt-4 flex gap-2">
+                  <span class="text-[10px] bg-slate-100 p-1 rounded font-medium"
+                    >Visual: ⭐⭐⭐⭐</span
+                  >
+                  <span class="text-[10px] bg-slate-100 p-1 rounded font-medium"
+                    >Respon: Cepat</span
+                  >
+                </div>
+              </div>
+
+              <div
+                class="bg-white p-4 rounded-2xl shadow-sm border-l-4 border-blue-400"
+              >
+                <div class="flex justify-between items-start">
+                  <h4 class="font-bold text-slate-800">Ternakoo Sapi</h4>
+                  <span
+                    class="bg-blue-100 text-blue-700 text-[10px] px-2 py-0.5 rounded-full font-bold"
+                    >BACKUP</span
+                  >
+                </div>
+                <p class="text-xs text-slate-500 mt-1">
+                  Slot Tambahan & Alternatif
+                </p>
+              </div>
+
+              <div
+                class="bg-white p-4 rounded-2xl shadow-sm border-l-4 border-slate-300 opacity-60"
+              >
+                <div class="flex justify-between items-start">
+                  <h4 class="font-bold text-slate-800">Abu Hamzah</h4>
+                  <span
+                    class="bg-slate-200 text-slate-600 text-[10px] px-2 py-0.5 rounded-full font-bold"
+                    >HOLD</span
+                  >
+                </div>
+                <p class="text-xs text-slate-500 mt-1 italic">
+                  Internal Only - Menunggu Perbaikan
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section class="space-y-6">
+            <div class="flex items-center gap-2 mb-2">
+              <i class="fa-solid fa-bullhorn text-amber-500"></i>
+              <h3
+                class="font-bold text-slate-700 uppercase text-xs tracking-widest"
+              >
+                2. Tampilan Katalog (Warga)
+              </h3>
+            </div>
+
+            <div
+              class="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-200"
+            >
+              <div class="h-40 bg-slate-200 relative overflow-hidden group">
+                <img
+                  src="https://images.openai.com/static-rsc-4/1Krbe-PLTiTfL_7-A9iJ8NV6NXilNeAEf1CUr-3oSGAbY4Re59eVderEuX_XE_K7sIUylRiidNJAInhpEmeCHJLvWLTOcv40NRYVkq8IYFfM2JDgOru_LxggXnvyXg0EwF0wkVLVIfOg4hrTH4otFyaPRyAboamBe06uV-15pJ6EkwJS1qaetxkeayC4lyRT?purpose=fullsize"
+                  class="w-full h-full object-cover grayscale-[20%]"
+                  alt="Sapi Bali"
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
+                ></div>
+                <div class="absolute bottom-4 left-4 text-white">
+                  <span
+                    class="bg-emerald-500 text-[10px] font-bold px-2 py-1 rounded"
+                    >PRE-BOOKING OPEN</span
+                  >
+                  <h4 class="font-bold">Kategori Sapi Bali (A)</h4>
+                </div>
+              </div>
+              <div class="p-5 space-y-4">
+                <div
+                  class="grid grid-cols-2 gap-2 text-[10px] font-bold uppercase text-slate-400"
+                >
+                  <div>
+                    <i class="fa-solid fa-weight-hanging mr-1"></i> 250-300 KG
+                  </div>
+                  <div>
+                    <i
+                      class="fa-solid fa-virus-slash mr-1 text-emerald-500"
+                    ></i>
+                    Garansi Sehat
+                  </div>
+                </div>
+                <div class="bg-amber-50 p-3 rounded-xl border border-amber-100">
+                  <p class="text-[10px] text-amber-800 leading-relaxed italic">
+                    <strong>Disclaimer:</strong> Foto adalah representasi spek
+                    kualitas. Pemilihan hewan dilakukan sistem acak (Random
+                    Assign) sesuai kategori untuk menjamin keadilan.
+                  </p>
+                </div>
+                <button
+                  class="w-full bg-slate-900 text-white py-3 rounded-xl font-bold text-sm"
+                >
+                  Booking Sekarang
+                </button>
+              </div>
+            </div>
+          </section>
+
+          <section class="space-y-6">
+            <div class="flex items-center gap-2 mb-2">
+              <i class="fa-solid fa-clock-rotate-left text-emerald-500"></i>
+              <h3
+                class="font-bold text-slate-700 uppercase text-xs tracking-widest"
+              >
+                3. Timeline & Checkpoint
+              </h3>
+            </div>
+
+            <div class="relative pl-8 space-y-8">
+              <div class="timeline-line"></div>
+
+              <div class="relative">
+                <div
+                  class="absolute -left-10 h-5 w-5 bg-emerald-500 rounded-full border-4 border-white z-10"
+                ></div>
+                <h4 class="text-sm font-bold text-slate-800">
+                  Minggu 1-2 (Sekarang)
+                </h4>
+                <p class="text-xs text-slate-500">
+                  Publish harga, kumpulkan DP, seleksi visual vendor.
+                </p>
+                <span
+                  class="inline-block mt-2 text-[9px] bg-emerald-100 text-emerald-700 font-bold px-2 py-0.5 rounded"
+                  >ONGOING</span
+                >
+              </div>
+
+              <div class="relative">
+                <div
+                  class="absolute -left-10 h-5 w-5 bg-slate-200 rounded-full border-4 border-white z-10 text-white flex items-center justify-center text-[10px] font-bold"
+                >
+                  2
+                </div>
+                <h4 class="text-sm font-bold text-slate-400">Minggu 3-4</h4>
+                <p class="text-xs text-slate-400">
+                  Lock jumlah kebutuhan ke vendor (70:30 split strategy).
+                </p>
+              </div>
+
+              <div class="relative">
+                <div
+                  class="absolute -left-10 h-5 w-5 bg-slate-200 rounded-full border-4 border-white z-10"
+                ></div>
+                <h4 class="text-sm font-bold text-slate-400">
+                  H-14 (The Real Deal)
+                </h4>
+                <p class="text-xs text-slate-400">
+                  Minta shortlist hewan fisik & Tagging kode nomor.
+                </p>
+              </div>
+
+              <div class="relative">
+                <div
+                  class="absolute -left-10 h-5 w-5 bg-slate-200 rounded-full border-4 border-white z-10"
+                ></div>
+                <h4 class="text-sm font-bold text-slate-400">H-7 (Legality)</h4>
+                <p class="text-xs text-slate-400">
+                  Penerbitan SKKH & Final Quality Check sebelum kirim.
+                </p>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div
+          class="mt-12 bg-white p-8 rounded-3xl border border-slate-200 shadow-sm"
+        >
+          <div class="flex items-center gap-4 mb-6">
+            <div class="bg-blue-100 p-3 rounded-2xl text-blue-600">
+              <i class="fa-solid fa-handshake-angle fa-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold">
+                Mandatory Vendor Commitment (Leverage Anda)
+              </h3>
+              <p class="text-sm text-slate-500">
+                Poin yang wajib disepakati vendor sebelum DP dikirim.
+              </p>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-6 text-sm">
+            <div class="flex items-start gap-3 p-4 bg-slate-50 rounded-2xl">
+              <i class="fa-solid fa-video text-blue-500 mt-1"></i>
+              <p>
+                <strong>Real-time Update:</strong> Wajib kirim video kondisi
+                hewan per minggu (bukan stok lama).
+              </p>
+            </div>
+            <div class="flex items-start gap-3 p-4 bg-slate-50 rounded-2xl">
+              <i class="fa-solid fa-rotate text-emerald-500 mt-1"></i>
+              <p>
+                <strong>Replacement Guarantee:</strong> Komitmen ganti hewan
+                setara jika sakit/mati sebelum serah terima.
+              </p>
+            </div>
+            <div class="flex items-start gap-3 p-4 bg-slate-50 rounded-2xl">
+              <i class="fa-solid fa-file-medical text-red-500 mt-1"></i>
+              <p>
+                <strong>SKKH H-7:</strong> Dokumen kesehatan wajib tersedia
+                sebelum hewan naik truk pengiriman.
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      // Interactive Logic for Dashboard
+      console.log(
+        'Qurban Management System Loaded - Strategy: Pre-Booking & Guarantee',
+      );
+    </script>
+  </body>
+</html>
