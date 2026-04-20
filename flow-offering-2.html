@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QurbanFlow 2026 - High Trust System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap');
+      body {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        background-color: #f1f5f9;
+      }
+      .guarantee-badge {
+        background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+      }
+      .timeline-dot-active {
+        box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+      }
+    </style>
+  </head>
+  <body class="antialiased">
+    <div class="flex flex-col md:flex-row min-h-screen">
+      <aside class="w-full md:w-64 bg-slate-900 text-slate-400 p-6 shadow-2xl">
+        <div class="flex items-center gap-3 mb-10">
+          <div
+            class="h-10 w-10 bg-emerald-500 rounded-xl flex items-center justify-center text-white shadow-lg shadow-emerald-500/20"
+          >
+            <i class="fa-solid fa-shield-heart fa-lg"></i>
+          </div>
+          <h1 class="text-xl font-black text-white tracking-tighter">
+            VET-FLOW
+          </h1>
+        </div>
+
+        <nav class="space-y-2">
+          <a
+            href="#"
+            class="flex items-center gap-3 p-3 bg-emerald-600/10 text-emerald-400 rounded-xl font-bold"
+          >
+            <i class="fa-solid fa-gauge-high"></i> Monitoring Dashboard
+          </a>
+          <a
+            href="#"
+            class="flex items-center gap-3 p-3 hover:bg-slate-800 hover:text-white rounded-xl transition"
+          >
+            <i class="fa-solid fa-hand-holding-medical"></i> Jaminan & SLA
+          </a>
+          <a
+            href="#"
+            class="flex items-center gap-3 p-3 hover:bg-slate-800 hover:text-white rounded-xl transition"
+          >
+            <i class="fa-solid fa-clipboard-list"></i> Log Pemantauan
+          </a>
+        </nav>
+      </aside>
+
+      <main class="flex-1 p-4 md:p-8 overflow-y-auto">
+        <div
+          class="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4"
+        >
+          <div>
+            <h2 class="text-3xl font-black text-slate-800 tracking-tight">
+              Requirement & Garansi
+            </h2>
+            <p class="text-slate-500 font-medium">
+              Standar Otoritas Kesehatan Hewan (Vet-Audit) 2026
+            </p>
+          </div>
+          <div
+            class="bg-white px-5 py-3 rounded-2xl border border-slate-200 shadow-sm flex items-center gap-4"
+          >
+            <div class="text-right">
+              <p class="text-[10px] font-bold text-slate-400 uppercase">
+                Status Sistem
+              </p>
+              <p class="text-sm font-bold text-emerald-600 italic">
+                High-Trust Protocol Active
+              </p>
+            </div>
+            <i class="fa-solid fa-circle-check text-emerald-500 text-2xl"></i>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <div
+            class="bg-white p-5 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition"
+          >
+            <div
+              class="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mb-4 text-xl"
+            >
+              <i class="fa-solid fa-heart-pulse"></i>
+            </div>
+            <h4 class="font-bold text-slate-800 text-sm mb-1">Garansi Sehat</h4>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              Jaminan kesehatan hewan tanpa kompromi hingga hari H
+              penyembelihan.
+            </p>
+          </div>
+
+          <div
+            class="bg-white p-5 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition"
+          >
+            <div
+              class="w-12 h-12 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center mb-4 text-xl"
+            >
+              <i class="fa-solid fa-rotate"></i>
+            </div>
+            <h4 class="font-bold text-slate-800 text-sm mb-1">
+              Sistem Penggantian
+            </h4>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              Jika ditemukan hewan sakit/cacat/tidak layak, vendor wajib ganti
+              unit setara.
+            </p>
+          </div>
+
+          <div
+            class="bg-white p-5 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition"
+          >
+            <div
+              class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center mb-4 text-xl"
+            >
+              <i class="fa-solid fa-file-medical"></i>
+            </div>
+            <h4 class="font-bold text-slate-800 text-sm mb-1">SKKH H-7</h4>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              Sertifikat resmi dari Dinas Pertanian wajib tersedia 7 hari
+              sebelum pelaksanaan.
+            </p>
+          </div>
+
+          <div
+            class="bg-white p-5 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition"
+          >
+            <div
+              class="w-12 h-12 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center mb-4 text-xl"
+            >
+              <i class="fa-solid fa-eye"></i>
+            </div>
+            <h4 class="font-bold text-slate-800 text-sm mb-1">
+              Live Monitoring
+            </h4>
+            <p class="text-xs text-slate-500 leading-relaxed">
+              Hewan dipantau secara berkala (feeding & health check) setiap
+              pekan.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div class="lg:col-span-2 space-y-6">
+            <div
+              class="bg-slate-900 rounded-[2rem] p-8 text-white shadow-2xl relative overflow-hidden"
+            >
+              <div class="relative z-10">
+                <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+                  <i class="fa-solid fa-handshake text-emerald-400"></i> Vendor
+                  SLA Compliance
+                </h3>
+                <div class="space-y-4">
+                  <div
+                    class="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/10"
+                  >
+                    <div class="flex items-center gap-4">
+                      <div
+                        class="h-10 w-10 bg-emerald-500/20 rounded-full flex items-center justify-center"
+                      >
+                        <i class="fa-solid fa-check text-emerald-400"></i>
+                      </div>
+                      <div>
+                        <p class="text-sm font-bold">
+                          Sapi Bali Perkasa (Primary)
+                        </p>
+                        <p class="text-[10px] text-slate-400">
+                          Menyetujui 4 Poin Garansi & SLA
+                        </p>
+                      </div>
+                    </div>
+                    <span
+                      class="text-[10px] bg-emerald-500 px-2 py-1 rounded-full font-black"
+                      >CONTRACT SIGNED</span
+                    >
+                  </div>
+                  <div
+                    class="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/10"
+                  >
+                    <div class="flex items-center gap-4">
+                      <div
+                        class="h-10 w-10 bg-amber-500/20 rounded-full flex items-center justify-center"
+                      >
+                        <i class="fa-solid fa-clock text-amber-400"></i>
+                      </div>
+                      <div>
+                        <p class="text-sm font-bold">
+                          Ternakoo Sapi (Secondary)
+                        </p>
+                        <p class="text-[10px] text-slate-400">
+                          Proses Negosiasi Klausul Penggantian
+                        </p>
+                      </div>
+                    </div>
+                    <span
+                      class="text-[10px] bg-amber-500 px-2 py-1 rounded-full font-black text-slate-900"
+                      >PENDING SLA</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="absolute -right-20 -bottom-20 opacity-10">
+                <i class="fa-solid fa-file-signature text-[15rem]"></i>
+              </div>
+            </div>
+
+            <div
+              class="bg-white rounded-[2rem] p-8 border border-slate-200 shadow-sm"
+            >
+              <h3
+                class="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2"
+              >
+                <i class="fa-solid fa-list-check text-blue-500"></i> Log
+                Monitoring & Health Check
+              </h3>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                  <thead>
+                    <tr
+                      class="text-[10px] font-black text-slate-400 uppercase tracking-widest border-b"
+                    >
+                      <th class="pb-4">Tanggal Check</th>
+                      <th class="pb-4">Parameter</th>
+                      <th class="pb-4">Status</th>
+                      <th class="pb-4">Evidence</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-sm">
+                    <tr class="border-b border-slate-50">
+                      <td class="py-4 font-bold">14 Apr 2026</td>
+                      <td class="py-4">Nafsu Makan & Bio-Security</td>
+                      <td class="py-4">
+                        <span class="text-emerald-600 font-bold">● Normal</span>
+                      </td>
+                      <td
+                        class="py-4 text-blue-500 font-bold underline cursor-pointer"
+                      >
+                        View Video
+                      </td>
+                    </tr>
+                    <tr class="border-b border-slate-50">
+                      <td class="py-4 font-bold">20 Apr 2026</td>
+                      <td class="py-4">Pemeriksaan Fisik (Mata/Mulut)</td>
+                      <td class="py-4">
+                        <span class="text-emerald-600 font-bold">● Sehat</span>
+                      </td>
+                      <td
+                        class="py-4 text-blue-500 font-bold underline cursor-pointer"
+                      >
+                        View Photo
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-6">
+            <div
+              class="bg-white rounded-[2rem] border-2 border-emerald-500 shadow-xl overflow-hidden relative"
+            >
+              <div
+                class="p-2 bg-emerald-500 text-white text-center text-[10px] font-black uppercase tracking-[0.2em]"
+              >
+                Tampilan Untuk Warga
+              </div>
+              <div class="p-6">
+                <div class="flex items-center gap-3 mb-6">
+                  <div
+                    class="h-12 w-12 bg-emerald-100 rounded-2xl flex items-center justify-center text-emerald-600"
+                  >
+                    <i class="fa-solid fa-shield-cat fa-xl"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-black text-slate-800">Qurban Tenang</h4>
+                    <p
+                      class="text-[10px] font-bold text-slate-400 uppercase tracking-widest"
+                    >
+                      Premium Assurance
+                    </p>
+                  </div>
+                </div>
+
+                <div class="space-y-3">
+                  <div
+                    class="flex items-center gap-3 p-3 bg-emerald-50 rounded-2xl border border-emerald-100"
+                  >
+                    <i class="fa-solid fa-check-circle text-emerald-500"></i>
+                    <span class="text-xs font-bold text-emerald-800"
+                      >Garansi Sehat Hingga Hari H</span
+                    >
+                  </div>
+                  <div
+                    class="flex items-center gap-3 p-3 bg-emerald-50 rounded-2xl border border-emerald-100"
+                  >
+                    <i class="fa-solid fa-check-circle text-emerald-500"></i>
+                    <span class="text-xs font-bold text-emerald-800"
+                      >Ganti Baru Jika Sakit/Tidak Layak</span
+                    >
+                  </div>
+                  <div
+                    class="flex items-center gap-3 p-3 bg-emerald-50 rounded-2xl border border-emerald-100"
+                  >
+                    <i class="fa-solid fa-check-circle text-emerald-500"></i>
+                    <span class="text-xs font-bold text-emerald-800"
+                      >Dokumen SKKH H-7 Terjamin</span
+                    >
+                  </div>
+                  <div
+                    class="flex items-center gap-3 p-3 bg-emerald-50 rounded-2xl border border-emerald-100"
+                  >
+                    <i class="fa-solid fa-check-circle text-emerald-500"></i>
+                    <span class="text-xs font-bold text-emerald-800"
+                      >Monitoring Kesehatan Mingguan</span
+                    >
+                  </div>
+                </div>
+
+                <p class="mt-6 text-[10px] text-slate-400 italic text-center">
+                  *Setiap hewan melalui supervisi Dokter Hewan Pengawas.
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="bg-blue-600 rounded-[2rem] p-6 text-white text-center shadow-lg shadow-blue-200"
+            >
+              <i class="fa-solid fa-bullhorn text-2xl mb-3"></i>
+              <h4 class="font-bold mb-2">Siap Kirim Materi?</h4>
+              <p class="text-xs text-blue-100 mb-4 leading-relaxed">
+                Download narasi & visual garansi untuk dibagikan ke grup warga.
+              </p>
+              <button
+                class="w-full bg-white text-blue-600 py-3 rounded-xl font-black text-sm uppercase tracking-wider hover:bg-blue-50 transition"
+              >
+                Copy Narasi Warga
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
